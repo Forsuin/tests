@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import sys
+import time
 
 import pytest
 from selenium import webdriver
@@ -79,14 +80,17 @@ class TestWebsite:
     self.driver.find_element(By.ID, "signInFormPassword").send_keys("!Pa55w0rd5")
     self.driver.find_element(By.ID, "signInFormPassword").send_keys(Keys.ENTER)
 
+    time.sleep(1)
+
     self.driver.get("https://darichards-main-patch-0ecb.dva0ia48yehl5.amplifyapp.com/admindashboard")
+
+    time.sleep(2)
 
     self.driver.find_element(By.XPATH, "//a[@href='#tab-3']").click()
 
     # WebDriverWait(self.driver, timeout=5).until(EC.element_to_be_clickable(self.driver.find_element(By.XPATH, "//*[@id='home-user-1']"))).click()
 
-    element = WebDriverWait(self.driver, timeout=10).until(EC.element_to_be_clickable(self.driver.find_element(By.XPATH,"/html/body/div/div/div[3]/div[1]/div/div[1]/div/div[1]/div[6]/div/div/div[2]/div")))
-    element.click()
+    self.driver.find_element(By.XPATH,"/html/body/div/div/div[3]/div[1]/div/div[1]/div/div[1]/div[6]/div/div/div[2]/div").click()
     assert self.driver.find_element(By.XPATH, "/html/body/div/div/div[3]/div[1]/div/div[2]/div/div[1]/div[1]").text == "ilaidlaw"
     self.driver.find_element(By.XPATH, "/html/body/div/div/div[3]/div[1]/div/div[2]/div/div[1]/div[1]").click()
     self.driver.find_element(By.XPATH, "//*[@id='address']").send_keys("New Address")
